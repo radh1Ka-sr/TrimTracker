@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
     const saloon = await Saloon.findOne({ email, password });
     if (saloon) {
       const token = jwt.sign({ saloon : saloon.email}, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Logged in successfully', token });
+      res.json({ message: 'Logged in successfully', token , saloon });
     } else {
       res.status(403).json({ message: 'Invalid email or password' });
     }
@@ -51,6 +51,23 @@ router.get('/',authenticateJwt,async(req,res)=>{
         }
     })
   });
+
+// Delete a User
+router.delete('/:userId', authenticateJwt, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Remove this user from any saloons' user arrays
+    await Saloon.updateMany(
+      { user: userId },
+      { $pull: { user: userId } }
+    );
+
+    res.json({ message: "User and their appointments completed and removed successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 
   module.exports = router;

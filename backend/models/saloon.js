@@ -42,7 +42,11 @@ const SaloonSchema = new Schema({
     user: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
-    }]
+    }],
+    endTime : {
+        type : Number,
+        default : 0
+    }
 });
 
 const Saloon = mongoose.model("Saloon", SaloonSchema);
