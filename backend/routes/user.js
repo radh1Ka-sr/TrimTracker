@@ -48,6 +48,23 @@ router.post('/signup', async (req, res) => {
 })
 
   //Post appointment
+  router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
+    const { services } = req.body;
+    const saloon = await Course.findById(req.params.courseId);
+    console.log(course);
+    if (course) {
+      const user = await User.findOne({ username: req.user.username });
+      if (user) {
+        user.purchasedCourses.push(course);
+        await user.save();
+        res.json({ message: 'Course purchased successfully' });
+      } else {
+        res.status(403).json({ message: 'User not found' });
+      }
+    } else {
+      res.status(404).json({ message: 'Course not found' });
+    }
+  });
 
 
 

@@ -8,12 +8,12 @@ const { authenticateJwt } = require('../middleware/auth');
 
 //Signup
 router.post('/signup', async (req, res) => {
-    const { name, email, password, saloonName,services, prices, averageTimes, address} = req.body;
+    const { name, email, password, saloonName,services, prices, averageTimes, address, user} = req.body;
     const saloon = await Saloon.findOne({ email });
     if (saloon) {
       res.status(403).json({ message: 'Saloon already exists' });
     } else {
-      const newSaloon = new Saloon({ name, email, password, saloonName,services, prices, averageTimes, address});
+      const newSaloon = new Saloon({ name, email, password, saloonName,services, prices, averageTimes, address, user});
       await newSaloon.save();
       const token = jwt.sign({ email, role: 'saloon' }, SECRET, { expiresIn: '1h' });
       res.json({ message: 'Saloon created successfully', token });
@@ -35,14 +35,16 @@ router.post('/login', async (req, res) => {
 
 //Home page for saloon
 router.get('/',authenticateJwt,async(req,res)=>{
-    const saloon = req.user.saloon; 
+    const saloon = req.user.saloon;
+    console.log(saloon);
     const token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, SECRET , async (err,decode)=>{
         try {
-            let saloon = await Saloon.find({saloon});
+            let data = await Saloon.find({email : saloon});
+            console.log(data)
             res.status(200).json({
                 message : "Success",
-                data : saloon,
+                data : data,
             })
         } catch (err) {
             res.json({message : err.message})

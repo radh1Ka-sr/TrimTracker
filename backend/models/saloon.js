@@ -39,6 +39,10 @@ const SaloonSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Appointment',
     }],
+    user: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }]
 });
 
 const Saloon = mongoose.model("Saloon", SaloonSchema);
