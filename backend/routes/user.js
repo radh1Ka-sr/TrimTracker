@@ -31,11 +31,34 @@ router.post('/signup', async (req, res) => {
     }
   });
 
+
+  // Get user appointments
+router.get('/myAppointments', authenticateJwt, async (req, res) => {
+  try {
+    const email = req.user.user;
+
+    // Find the user by email and populate the appointments
+    const user = await User.findOne({ email }).populate('appointments');
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Return the populated appointments
+    res.json({ myAppointments: user.appointments });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
  //Get all saloons
  router.get('/', authenticateJwt, async (req, res) => {
   const saloon = await Saloon.find({});
   res.json({ saloon });
 });
+
+  
 
   //Get saloon by id
   router.get('/:saloonId' , authenticateJwt , async (req,res)=>{
@@ -129,25 +152,7 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
   }
 });
 
-// Get user appointments
-router.get('/myAppointments', authenticateJwt, async (req, res) => {
-  try {
-    const email = req.user.user;
 
-    // Find the user by email and populate the appointments
-    const user = await User.findOne({ email }).populate('appointments');
-
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Return the populated appointments
-    res.json({ myAppointments: user.appointments });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
 
 
