@@ -101,7 +101,9 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
       totalPrice += price;
       totalTime += time;
     });
+    
 
+    
     // Calculation of time
     let currTime = new Date();
     let startTime;
