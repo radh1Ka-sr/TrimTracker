@@ -17,7 +17,9 @@ const UserLogin = () => {
   </div>
   <button type="submit" className="btn btn-primary">Login</button>
   </div>
+  <div style={{marginBottom:'2rem'}}>
   <Link to="/userRegister" style={{marginLeft:'25rem',marginRight:'25rem',marginBottom:'5rem'}} >If you are not  registered then Regiser!</Link>
+  </div>
     </div>
   );
 }

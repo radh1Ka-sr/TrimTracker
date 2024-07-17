@@ -28,7 +28,9 @@ const UserRegister = () => {
   </div>  
   <button type="submit" className="btn btn-primary">Register</button>
 </form>
+<div style={{marginBottom:'2rem'}}>
 <Link to="/userLogin" style={{marginLeft:'25rem',marginRight:'25rem',marginBottom:'5rem'}} >If you are already registered then Login!</Link>
+</div>
     </div>
   );
 }
