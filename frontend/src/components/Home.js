@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div style={{backgroundColor:"lavenderblush"}}>
@@ -10,7 +10,7 @@ const Home = () => {
           <div className="card-body">
            
             <p className="card-text">Click Here for Registering as a Saloon.</p>
-            <a href="#" className="btn " style={{backgroundColor:"maroon",color:"white"}}>Saloon</a>
+            <Link to="/saloonRegister" className="btn " style={{backgroundColor:"maroon",color:"white"}}>Saloon</Link>
           </div>
         </div>
         <div className="card" style={{width: "20rem"}}>
@@ -18,7 +18,7 @@ const Home = () => {
           <div className="card-body">
            
             <p className="card-text">Click Here for Registering as a Customer .</p>
-            <a href="#" className="btn " style={{backgroundColor:"maroon",color:"white"}}>Customer</a>
+            <Link to="/userRegister" className="btn " style={{backgroundColor:"maroon",color:"white"}}>Customer</Link>
           </div>
         </div>
       </div>
