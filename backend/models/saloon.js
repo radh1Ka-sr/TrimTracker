@@ -24,6 +24,9 @@ const SaloonSchema = new Schema({
         type: String,
         required: true,
     },
+    imageAddress : {
+        type : String,
+    },
     services: [{
         type: String,
     }],

@@ -8,12 +8,12 @@ const { authenticateJwt } = require('../middleware/auth');
 
 //Signup
 router.post('/signup', async (req, res) => {
-    const { name, email, password, saloonName,services, prices, averageTimes, address, user} = req.body;
+    const { name, email, password, saloonName,imageAddress, services, prices, averageTimes, address, user} = req.body;
     const saloon = await Saloon.findOne({ email });
     if (saloon) {
       res.status(403).json({ message: 'Saloon already exists' });
     } else {
-      const newSaloon = new Saloon({ name, email, password, saloonName,services, prices, averageTimes, address, user});
+      const newSaloon = new Saloon({ name, email, password, saloonName,imageAddress, services, prices, averageTimes, address, user});
       await newSaloon.save();
       const token = jwt.sign({ email, role: 'saloon' }, SECRET, { expiresIn: '1h' });
       res.json({ message: 'Saloon created successfully', token });

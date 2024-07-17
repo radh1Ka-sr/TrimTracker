@@ -11,6 +11,7 @@ const SaloonRegister = () => {
   const [password, setPassword] = useState('');
   const [saloonName, setSaloonName] = useState('');
   const [address, setAddress] = useState('');
+  const [imageAddress, setImageAddress] = useState('');
   const [services, setServices] = useState([]);
   const [prices, setPrices] = useState([]);
   const [averageTimes, setAverageTimes] = useState([]);
@@ -42,12 +43,12 @@ const SaloonRegister = () => {
     event.preventDefault();
     
     axios.post( 'http://localhost:3000/saloon/signup', {
-      name , email, password, saloonName, address, services, prices, averageTimes})
+      name , email, password, saloonName, address, imageAddress, services, prices, averageTimes})
     .then(result => {
         console.log(result);
         if(result.data.message === "Saloon created successfully"){
             console.log("Login Success");
-            alert('Login successful!')
+            alert('Registered Succissfully')
             navigate('/saloonLogin');
         }
         else{
@@ -88,6 +89,11 @@ const SaloonRegister = () => {
     <label for="exampleInputEmail1" className="form-label">Address</label>
     <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
     onChange={(event) => setAddress(event.target.value)} />
+  </div>  
+  <div className="mb-3" style={{margin:'1rem'}}>
+    <label for="exampleInputEmail1" className="form-label">Image Address Link</label>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
+    onChange={(event) => setImageAddress(event.target.value)} />
   </div>  
   <div style={{display:'flex',flexWrap:'wrap',borderStyle:'solid',borderColor:'lightblue',marginTop:'1rem',marginBottom:'1rem',margin:'1rem'}}>
   <div className="mb-3" style={{marginLeft:'1rem'}}>
