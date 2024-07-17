@@ -1,47 +1,115 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 const SaloonRegister = () => {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [saloonName, setSaloonName] = useState('');
+  const [address, setAddress] = useState('');
+  const [services, setServices] = useState([]);
+  const [prices, setPrices] = useState([]);
+  const [averageTimes, setAverageTimes] = useState([]);
+  const [serviceInput, setServiceInput] = useState('');
+  const [priceInput, setPriceInput] = useState('');
+  const [timeInput, setTimeInput] = useState('');
+
+  const navigate = useNavigate();
+
+
+  const handleAddService = () => {
+    if (!serviceInput || !priceInput || !timeInput) {
+      alert('Please fill all the fields for the service, price, and time.');
+      return;
+    }
+
+    setServices([...services, serviceInput]);
+    setPrices([...prices, priceInput]);
+    setAverageTimes([...averageTimes, timeInput]);
+
+    alert(serviceInput + ' Service Added with Price ' + priceInput + ' and with Time ' + timeInput + 'minutes');
+    setServiceInput('');
+    setPriceInput('');
+    setTimeInput('');
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    axios.post( 'http://localhost:3000/saloon/signup', {
+      name , email, password, saloonName, address, services, prices, averageTimes})
+    .then(result => {
+        console.log(result);
+        if(result.data.message === "Saloon created successfully"){
+            console.log("Login Success");
+            alert('Login successful!')
+            navigate('/saloonLogin');
+        }
+        else{
+            alert('Incorrect password! Please try again.');
+        }
+    })
+    .catch(err => console.log(err));
+}
+
+  
+
   return (
     <div>
-       <form style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem'}}>
+       <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem'}}>
         <h2 style={{display:'flex',justifyContent:'center',marginBottom:'1rem'}}>Register as a Saloon </h2>
       <div className="mb-3">
     <label for="exampleInputEmail1" className="form-label">Name</label>
-    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
+    onChange={(event) => setName(event.target.value)}  />
   </div>      
   <div className="mb-3">
-    <label for="exampleInputEmail1" className="form-label">Email address</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+    <label for="exampleInputEmail1" className="form-label">Email</label>
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+    onChange={(event) => setEmail(event.target.value)} />
     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
   </div>
   <div className="mb-3">
     <label for="exampleInputPassword1" className="form-label">Password</label>
-    <input type="password" className="form-control" id="exampleInputPassword1"/>
+    <input type="password" className="form-control" id="exampleInputPassword1"
+    onChange={(event) => setPassword(event.target.value)} />
   </div>
   <div className="mb-3">
-    <label for="exampleInputEmail1" className="form-label">SaloonName</label>
-    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+    <label for="exampleInputEmail1" className="form-label">Saloon Name</label>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
+    onChange={(event) => setSaloonName(event.target.value)} />
   </div>   
   <div className="mb-3">
     <label for="exampleInputEmail1" className="form-label">Address</label>
-    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
+    onChange={(event) => setAddress(event.target.value)} />
   </div>  
   <div style={{display:'flex',flexWrap:'wrap',borderStyle:'solid',borderColor:'lightblue',marginTop:'1rem',marginBottom:'1rem'}}>
   <div className="mb-3" style={{marginLeft:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label" >Services</label>
-    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp" 
+    onChange={(event) => setServiceInput(event.target.value)} value={serviceInput} />
   </div> 
   <div className="mb-3" style={{marginLeft:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label">Price</label>
-    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
+    onChange={(event) => setPriceInput(event.target.value)} value={priceInput} />
   </div> 
   <div className="mb-3" style={{marginLeft:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label">Time in minutes</label>
-    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
+    onChange={(event) => setTimeInput(event.target.value)}  value={timeInput} />
   </div> 
-  <button type="button" class="btn btn-primary" style={{ marginLeft:'1rem',width:'10rem',maxHeight:'2.3rem',marginTop:'2rem'}}>Add More Services</button>
+  
+  <button type="button" class="btn btn-primary" style={{ marginLeft:'1rem',width:'10rem',maxHeight:'2.3rem',marginTop:'2rem'}}   onClick={handleAddService} >Add More Services</button>
+
   </div>
-  <Link to="/saloonLogin" className="btn btn-primary " >Register</Link>
+  <button type="submit" className="btn btn-primary">Register</button>
  
 </form>
 <div style={{marginBottom:'2rem'}}>
