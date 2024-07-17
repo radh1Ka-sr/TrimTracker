@@ -61,35 +61,35 @@ const SaloonRegister = () => {
 
   return (
     <div>
-       <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem'}}>
+       <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem',borderStyle:'solid',borderColor:'ButtonShadow'}}>
         <h2 style={{display:'flex',justifyContent:'center',marginBottom:'1rem'}}>Register as a Saloon </h2>
-      <div className="mb-3">
+      <div className="mb-3" style={{margin:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label">Name</label>
     <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
     onChange={(event) => setName(event.target.value)}  />
   </div>      
-  <div className="mb-3">
+  <div className="mb-3" style={{margin:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label">Email</label>
     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
     onChange={(event) => setEmail(event.target.value)} />
     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
   </div>
-  <div className="mb-3">
+  <div className="mb-3" style={{margin:'1rem'}}>
     <label for="exampleInputPassword1" className="form-label">Password</label>
     <input type="password" className="form-control" id="exampleInputPassword1"
     onChange={(event) => setPassword(event.target.value)} />
   </div>
-  <div className="mb-3">
+  <div className="mb-3" style={{margin:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label">Saloon Name</label>
     <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
     onChange={(event) => setSaloonName(event.target.value)} />
   </div>   
-  <div className="mb-3">
+  <div className="mb-3" style={{margin:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label">Address</label>
     <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"
     onChange={(event) => setAddress(event.target.value)} />
   </div>  
-  <div style={{display:'flex',flexWrap:'wrap',borderStyle:'solid',borderColor:'lightblue',marginTop:'1rem',marginBottom:'1rem'}}>
+  <div style={{display:'flex',flexWrap:'wrap',borderStyle:'solid',borderColor:'lightblue',marginTop:'1rem',marginBottom:'1rem',margin:'1rem'}}>
   <div className="mb-3" style={{marginLeft:'1rem'}}>
     <label for="exampleInputEmail1" className="form-label" >Services</label>
     <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp" 
@@ -106,10 +106,10 @@ const SaloonRegister = () => {
     onChange={(event) => setTimeInput(event.target.value)}  value={timeInput} />
   </div> 
   
-  <button type="button" class="btn btn-primary" style={{ marginLeft:'1rem',width:'10rem',maxHeight:'2.3rem',marginTop:'2rem'}}   onClick={handleAddService} >Add More Services</button>
+  <button type="button" class="btn btn-primary" style={{ marginLeft:'1rem',width:'10rem',maxHeight:'2.3rem',marginTop:'1.5rem',marginBottom:'1rem'}}   onClick={handleAddService} >Add More Services</button>
 
   </div>
-  <button type="submit" className="btn btn-primary">Register</button>
+  <button type="submit" className="btn btn-primary" style={{margin:'1rem'}}>Register</button>
  
 </form>
 <div style={{marginBottom:'2rem'}}>

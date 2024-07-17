@@ -22,6 +22,7 @@ function App() {
     < >
       <BrowserRouter>
    <ButtonAppBar/>
+   
    <Routes>
     <Route exact path="/" element={<Home/>}/>
     <Route exact path="/saloonRegister" element={<SaloonRegister/>} />

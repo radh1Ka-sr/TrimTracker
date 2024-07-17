@@ -30,11 +30,11 @@ const UserLogin = () => {
 
   return (
     <div>
-      <div style={{ marginTop: '3rem', marginLeft: '25rem', marginRight: '25rem', marginBottom: '1rem' }}>
+      <div style={{ marginTop: '3rem', marginLeft: '25rem', marginRight: '25rem', marginBottom: '1rem',borderStyle:'solid',borderColor:'ButtonShadow' }}>
         <h2 style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>Login as a Customer</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+          <div className="mb-3" style={{margin:'1rem'}}>
+            <label htmlFor="exampleInputEmail1" className="form-label" >Email</label>
             <input
               type="email"
               className="form-control"
@@ -45,8 +45,8 @@ const UserLogin = () => {
             />
             <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+          <div className="mb-3" style={{margin:'1rem'}}>
+            <label htmlFor="exampleInputPassword1" className="form-label" >Password</label>
             <input
               type="password"
               className="form-control"
@@ -55,7 +55,7 @@ const UserLogin = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary" style={{margin:'1rem'}}>Login</button>
         </form>
       </div>
       <div style={{ marginBottom: '2rem' }}>

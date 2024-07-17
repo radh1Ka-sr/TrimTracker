@@ -55,11 +55,11 @@ const UserRegister = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem'}}>
+    <div >
+      <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem',borderStyle:'solid',borderColor:'ButtonShadow'}}>
         <h2 style={{display:'flex',justifyContent:'center',marginBottom:'1rem'}}>Register as a Customer </h2>
         
-        <div className="mb-3">
+        <div className="mb-3" style={{margin:'1rem'}}>
           <label htmlFor="exampleInputName" className="form-label">Name</label>
           <input 
             type="text" 
@@ -71,7 +71,7 @@ const UserRegister = () => {
           {errors.name && <div className="form-text text-danger">{errors.name}</div>}
         </div>      
 
-        <div className="mb-3">
+        <div className="mb-3" style={{margin:'1rem'}}>
           <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
           <input 
             type="email" 
@@ -84,7 +84,7 @@ const UserRegister = () => {
           {errors.email && <div className="form-text text-danger">{errors.email}</div>}
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{margin:'1rem'}}>
           <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
           <input 
             type="password" 
@@ -95,7 +95,7 @@ const UserRegister = () => {
           {errors.password && <div className="form-text text-danger">{errors.password}</div>}
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3" style={{margin:'1rem'}}>
           <label htmlFor="exampleInputPhone" className="form-label">Phone No.</label>
           <input 
             type="text" 
@@ -107,7 +107,7 @@ const UserRegister = () => {
           {errors.phone && <div className="form-text text-danger">{errors.phone}</div>}
         </div>   
 
-        <div className="mb-3">
+        <div className="mb-3" style={{margin:'1rem'}}>
           <label htmlFor="exampleInputGender" className="form-label">Gender</label>
           <input 
             type="text" 
@@ -119,7 +119,7 @@ const UserRegister = () => {
           {errors.gender && <div className="form-text text-danger">{errors.gender}</div>}
         </div>  
 
-        <button type="submit" className="btn btn-primary">Register</button>
+        <button type="submit" className="btn btn-primary" style={{margin:'1rem'}}>Register</button>
       </form>
 
       <div style={{marginBottom:'2rem'}}>
