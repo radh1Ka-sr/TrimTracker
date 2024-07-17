@@ -26,6 +26,21 @@ const SaloonRegister = () => {
     <label for="exampleInputEmail1" className="form-label">Address</label>
     <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
   </div>  
+  <div style={{display:'flex',flexWrap:'wrap',borderStyle:'solid',borderColor:'lightblue',marginTop:'1rem',marginBottom:'1rem'}}>
+  <div className="mb-3" style={{marginLeft:'1rem'}}>
+    <label for="exampleInputEmail1" className="form-label" >Services</label>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+  </div> 
+  <div className="mb-3" style={{marginLeft:'1rem'}}>
+    <label for="exampleInputEmail1" className="form-label">Price</label>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+  </div> 
+  <div className="mb-3" style={{marginLeft:'1rem'}}>
+    <label for="exampleInputEmail1" className="form-label">Time in minutes</label>
+    <input type="name" className="form-control" id="exampleInputname" aria-describedby="nameHelp"/>
+  </div> 
+  <button type="button" class="btn btn-primary" style={{ marginLeft:'1rem',width:'10rem',maxHeight:'2.3rem',marginTop:'2rem'}}>Add More Services</button>
+  </div>
   <Link to="/saloonLogin" className="btn btn-primary " >Register</Link>
  
 </form>
