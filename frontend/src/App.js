@@ -39,7 +39,7 @@ function App() {
     <Route exact path="/userMyProfile" element={<MyProfile/>}/>
     <Route exact path="/userSaloon" element={<Saloon/>}/>
     
-    <Route/>
+    <Route/> 
    </Routes>
    
    </BrowserRouter>

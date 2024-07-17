@@ -13,8 +13,8 @@ const Card = ({ imageSrc, title, text , link}) => {
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{text}</p>
-        <button  type="button"  className="btn btn-primary" onClick={() => {
-                navigate("/userAddAppintment/" + `${link}`);}} >Lets Get into the Shop</button>
+        <button  type="button"  className="btn btn-primary" 
+        onClick={() => navigate(`/userAddAppointment/${link}`)} >Lets Get into the Shop</button>
       </div>
     </div>
   );
