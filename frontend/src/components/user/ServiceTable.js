@@ -1,7 +1,21 @@
 // ServiceTable.js
-import React from 'react';
+import React, {useEffect, useState } from 'react';
 
-const ServiceTable = ({ services, prices, times }) => {
+const ServiceTable = ({ services, prices, times, onServiceChange }) => {
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  const handleCheckboxChange = (service) => {
+    setSelectedServices(prevSelected =>
+      prevSelected.includes(service)
+        ? prevSelected.filter(s => s !== service)
+        : [...prevSelected, service]
+    );
+  };
+
+  useEffect(() => {
+    onServiceChange(selectedServices);
+  }, [selectedServices, onServiceChange]);
+
   return (
     <table className="table">
       <thead>
@@ -16,7 +30,13 @@ const ServiceTable = ({ services, prices, times }) => {
           <tr key={index}>
             <td>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" value={service} id={`service-${index}`} />
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={service}
+                  id={`service-${index}`}
+                  onChange={() => handleCheckboxChange(service)}
+                />
                 <label className="form-check-label" htmlFor={`service-${index}`}>
                   {service}
                 </label>

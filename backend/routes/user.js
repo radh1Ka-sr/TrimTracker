@@ -129,6 +129,9 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
     await newAppointment.save();
 
     user.appointments.push(newAppointment._id);
+    services.forEach(s => {
+      user.services.push(s);
+    })
     await user.save();
 
     saloon.appointments.push(newAppointment._id);
@@ -154,6 +157,11 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
   }
 });
 
+//Get MyAppointments
+router.get('/', authenticateJwt, async (req, res) => {
+  const saloon = await Saloon.find({});
+  res.json({ saloon });
+});
 
 
 

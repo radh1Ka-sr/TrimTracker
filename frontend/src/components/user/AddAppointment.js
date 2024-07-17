@@ -7,9 +7,9 @@ import ServiceTable from './ServiceTable';
 const AddAppointment = () => {
   const { saloonId } = useParams();
   const [saloonData, setSaloonData] = useState(null);
-  const [image, setImage] = useState('');
+  const [selectedServices, setSelectedServices] = useState([]);
   const [error, setError] = useState(null);
-
+  const [image, setImage] = useState('');
 
   const fetchSaloonData = async () => {
     try {
@@ -27,10 +27,31 @@ const AddAppointment = () => {
     }
   };
 
-
   useEffect(() => {
     fetchSaloonData();
   }, [saloonId]);
+
+  const handleServiceChange = (selected) => {
+    setSelectedServices(selected);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
+      const response = await axios.post(
+        `http://localhost:3000/user/${saloonId}/appointment`,
+        { services: selectedServices },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (error) {
     return <div>Error fetching saloon data.</div>;
@@ -64,9 +85,10 @@ const AddAppointment = () => {
           services={saloonData.services}
           prices={saloonData.prices}
           times={saloonData.averageTimes}
+          onServiceChange={handleServiceChange}
         />
         <div style={{ display: 'flex', justifyContent: 'right', marginTop: '1.7rem' }}>
-          <button type="button" className="btn btn-primary">
+          <button type="button" className="btn btn-primary" onClick={handleSubmit}>
             Book Appointment
           </button>
         </div>
