@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const SaloonHome = () => {
   return (
@@ -44,7 +44,9 @@ const SaloonHome = () => {
                 </button>
               </td>
             </tr>
-            <h4 style={{display:'flex', justifyContent:'center', marginTop:'1rem', marginBottom:'2rem'}}>Customer's in queue</h4>
+            <tr>
+              <td colSpan="5" style={{textAlign: 'center', fontWeight: 'bold', paddingTop: '2.5rem', paddingBottom:'1.5rem'}}><h4>Customer's in queue</h4></td>
+            </tr>
             <tr>
               <th scope="row"><li style={{marginLeft:'0.8rem'}}></li></th>
               <td>Mark</td>
@@ -88,4 +90,4 @@ const SaloonHome = () => {
   )
 }
 
-export default SaloonHome
+export default SaloonHome;
