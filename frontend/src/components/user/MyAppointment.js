@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import AppointmentTable from './AppointmentTable';
+import axios from 'axios';
 
 const MyAppointment = () => {
   const [appointments, setAppointments] = useState([]);
+  const [error, setError] = useState(null);
+  
+
+  const fetchSaloonData = async () => {
+    try {
+      const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
+      const response = await axios.get(`http://localhost:3000/user/myAppointments`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const reversedAppointments = response.data.myAppointments.reverse();
+      setAppointments(reversedAppointments);
+      
+      // setSaloonData(response.data.data);
+      // setImage(response.data.data.imageAddress);
+    } catch (err) {
+      setError(err);
+    }
+  };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
-    const userAppointments = storedAppointments.filter(app => app.userId === user.id); // Filter appointments by user ID
-
-    setAppointments(storedAppointments);
+    fetchSaloonData();
   }, []);
 
   return (

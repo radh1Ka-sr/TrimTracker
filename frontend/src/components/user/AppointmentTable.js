@@ -1,9 +1,26 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  });
+  const formattedTime = date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true
+  });
+  return `${formattedDate}\n${formattedTime}`;
+};
 
 const AppointmentTable = ({ appointments }) => {
   return (
     <div style={{ margin: '2rem' }}>
-      <table className="table table-striped">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">
@@ -15,19 +32,21 @@ const AppointmentTable = ({ appointments }) => {
             </th>
             <th scope="col">Saloon Name</th>
             <th scope="col">Address</th>
-            <th scope="col">Appointment Start Time</th>
-            <th scope="col">Appointment End Time</th>
-            <th scope="col">Total Price</th>
+            <th scope="col">Services</th>
+            <th scope="col" className="header-break">Appointment <br /> Start Time</th>
+            <th scope="col" className="header-break">Appointment <br /> End Time</th>
+            <th scope="col">Total Price (Rs)</th>
           </tr>
         </thead>
         <tbody>
           {appointments.map((appointment, index) => (
             <tr key={index}>
               <th scope="row"><li style={{ marginLeft: '0.8rem' }}></li></th>
-              <td>{appointment.saloonName}</td>
-              <td>{appointment.address}</td>
-              <td>{appointment.startTime}</td>
-              <td>{appointment.endTime}</td>
+              <td><Link to={`/userAddAppointment/${appointment.saloonId}`}>{appointment.saloonName}</Link></td>
+              <td>{appointment.saloonAddress}</td>
+              <td>{appointment.services + ' '}</td>
+              <td style={{ whiteSpace: 'pre-wrap' }}>{formatDate(appointment.startTime)}</td>
+              <td style={{ whiteSpace: 'pre-wrap' }}>{formatDate(appointment.endTime)}</td>
               <td>{appointment.totalPrice}</td>
             </tr>
           ))}

@@ -25,7 +25,7 @@ const ServiceTable = ({ services, prices, times, onServiceChange }) => {
       <thead>
         <tr>
           <th scope="col">Services</th>
-          <th scope="col">Prices</th>
+          <th scope="col">Prices (Rs)</th>
           <th scope="col">Time(min)</th>
         </tr>
       </thead>

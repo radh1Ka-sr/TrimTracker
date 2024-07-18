@@ -80,6 +80,8 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
 
   try {
     const saloon = await Saloon.findById(saloonId);
+
+    
     if (!saloon) {
       return res.status(404).json({ message: 'Saloon not found' });
     }
@@ -119,11 +121,21 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
     // Update saloon's endTime to be endTime of this appointment
     saloon.endTime = endTime;
 
+    let formattedStartTime = startTime.toString();
+    let formattedEndTime = endTime.toString();
+
+
+
     const newAppointment = new Appointment({
-      user: user._id,
-      shop: saloonId,
-      appointmentTime: startTime, // Set the appointment time
-      status: 'Pending',
+      userId: user._id,
+      saloonId: saloonId,
+      services : services,
+      totalPrice : totalPrice,
+      startTime : formattedStartTime,
+      endTime : formattedEndTime,
+      saloonName : saloon.saloonName,
+      saloonAddress : saloon.address
+
     });
 
     user.services = [];
@@ -144,8 +156,7 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
       await saloon.save();
 
     // Format the dates as strings
-    let formattedStartTime = startTime.toString();
-    let formattedEndTime = endTime.toString();
+
 
     res.json({ 
       message: 'Appointment booked successfully',
@@ -160,11 +171,25 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
   }
 });
 
-//Get MyAppointments
-router.get('/', authenticateJwt, async (req, res) => {
-  const saloon = await Saloon.find({});
-  res.json({ saloon });
-});
+// //Get MyAppointments
+// router.get('/', authenticateJwt, async (req, res) => {
+//   const saloon = await Saloon.find({});
+//   res.json({ saloon });
+// });
+
+
+// Get appointments for a specific user
+// router.get('/appoint',authenticateJwt, async (req, res) => {
+//   const email = req.user.user;
+//   const user = await User.findOne({ email });
+//   try {
+//     // const appointments = await Appointment.find({ });
+//     res.json(user);
+//   } catch (err) {
+//     res.status(400).json({ error: err.message });
+//   }
+// });
+
 
 
 

@@ -51,17 +51,18 @@ const AddAppointment = () => {
           },
         }
       );
-      const appointment = {
-        userId: user.id,
-        saloonName: saloonData.name,
-        address: saloonData.address,
-        startTime: response.data.startTime.substring(0, 25),
-        endTime: response.data.endTime.substring(0, 25),
-        totalPrice,
-      };
-      const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
-      storedAppointments.unshift(appointment);
-      localStorage.setItem('appointments', JSON.stringify(storedAppointments));
+      // const appointment = {
+      //   userId: user._id,
+      //   saloonId: saloonId,
+      //   services,
+      //   startTime: response.data.startTime.substring(0, 25),
+      //   endTime: response.data.endTime.substring(0, 25),
+      //   totalPrice,
+      // };
+      
+      // const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+      // storedAppointments.unshift(appointment);
+      // localStorage.setItem('appointments', JSON.stringify(storedAppointments));
 
       setAppointmentStartTime(response.data.startTime.substring(0, 25));
       setAppointmentEndTime(response.data.endTime.substring(0, 25));
