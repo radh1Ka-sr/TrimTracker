@@ -14,20 +14,17 @@ const UserHome = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setSaloonData(response.data.saloon);
-      // console.log(response)
+      const sortedData = response.data.saloon.sort((a, b) => a.endTime - b.endTime);
+      setSaloonData(sortedData);
       
     } catch (err) {
       setError(err);
-      
     }
   };
 
   useEffect(() => {
     init();
   }, []);
-
-  
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
@@ -37,9 +34,10 @@ const UserHome = () => {
           imageSrc={saloon.imageAddress} 
           title={saloon.saloonName} 
           text={saloon.address} 
-          link = {saloon._id}
+          link={saloon._id}
         />
       ))}
+      {error && <div>Error: {error.message}</div>}
     </div>
   );
 };

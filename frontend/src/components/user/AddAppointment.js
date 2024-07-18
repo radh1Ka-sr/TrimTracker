@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ServiceTable from './ServiceTable';
+import { useNavigate } from 'react-router-dom';
 
 const AddAppointment = () => {
+  const navigate = useNavigate();
   const { saloonId } = useParams();
   const [saloonData, setSaloonData] = useState(null);
   const [selectedServices, setSelectedServices] = useState([]);
@@ -47,6 +49,7 @@ const AddAppointment = () => {
           },
         }
       );
+      navigate('/userMyAppointment');
       console.log(response.data);
     } catch (err) {
       console.error(err);
