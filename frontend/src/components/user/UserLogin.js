@@ -11,21 +11,26 @@ const UserLogin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Hello");
+    // console.log("Hello");
 
     axios.post('http://localhost:3000/user/login', { email, password })
       .then(result => {
         console.log(result);
         if (result.data.message === "Logged in successfully") {
           console.log("Login Success");
-          localStorage.setItem('auth', JSON.stringify(result.data.token)); 
+          localStorage.setItem('auth', JSON.stringify(result.data.token));
+          localStorage.setItem('user', JSON.stringify(result.data.user));  
           alert('Login successful!');
           navigate('/userHome');
         } else {
           alert('Incorrect password! Please try again.');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert('Incorrect Email or Password!');
+        // console.log(err);
+        return;
+      });
   };
 
   return (

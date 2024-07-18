@@ -1,10 +1,9 @@
-// ServiceTable.js
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ServiceTable = ({ services, prices, times, onServiceChange }) => {
   const [selectedServices, setSelectedServices] = useState([]);
 
-  const handleCheckboxChange = (service) => {
+  const handleCheckboxChange = (service, price) => {
     setSelectedServices(prevSelected =>
       prevSelected.includes(service)
         ? prevSelected.filter(s => s !== service)
@@ -13,8 +12,13 @@ const ServiceTable = ({ services, prices, times, onServiceChange }) => {
   };
 
   useEffect(() => {
-    onServiceChange(selectedServices);
-  }, [selectedServices, onServiceChange]);
+    const selectedPrices = selectedServices.map(service => {
+      const index = services.indexOf(service);
+      return prices[index];
+    });
+    const totalPrice = selectedPrices.reduce((acc, price) => acc + price, 0);
+    onServiceChange(selectedServices, totalPrice);
+  }, [selectedServices, onServiceChange, services, prices]);
 
   return (
     <table className="table">
@@ -35,7 +39,7 @@ const ServiceTable = ({ services, prices, times, onServiceChange }) => {
                   type="checkbox"
                   value={service}
                   id={`service-${index}`}
-                  onChange={() => handleCheckboxChange(service)}
+                  onChange={() => handleCheckboxChange(service, prices[index])}
                 />
                 <label className="form-check-label" htmlFor={`service-${index}`}>
                   {service}

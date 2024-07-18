@@ -76,7 +76,7 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
   const email = req.user.user;
   const saloonId = req.params.saloonId;
   const user = await User.findOne({ email });
-  console.log(user);
+  // console.log(user);
 
   try {
     const saloon = await Saloon.findById(saloonId);
@@ -126,9 +126,12 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
       status: 'Pending',
     });
 
+    user.services = [];
+
     await newAppointment.save();
 
     user.appointments.push(newAppointment._id);
+
     services.forEach(s => {
       user.services.push(s);
     })

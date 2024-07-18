@@ -1,17 +1,18 @@
-// AddAppointment.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ServiceTable from './ServiceTable';
-import { useNavigate } from 'react-router-dom';
 
 const AddAppointment = () => {
   const navigate = useNavigate();
   const { saloonId } = useParams();
   const [saloonData, setSaloonData] = useState(null);
   const [selectedServices, setSelectedServices] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState(null);
   const [image, setImage] = useState('');
+  const [appointmentStartTime, setAppointmentStartTime] = useState('');
+  const [appointmentEndTime, setAppointmentEndTime] = useState('');
 
   const fetchSaloonData = async () => {
     try {
@@ -23,7 +24,6 @@ const AddAppointment = () => {
       });
       setSaloonData(response.data.data);
       setImage(response.data.data.imageAddress);
-      console.log(response)
     } catch (err) {
       setError(err);
     }
@@ -33,13 +33,15 @@ const AddAppointment = () => {
     fetchSaloonData();
   }, [saloonId]);
 
-  const handleServiceChange = (selected) => {
+  const handleServiceChange = (selected, totalPrice) => {
     setSelectedServices(selected);
+    setTotalPrice(totalPrice);
   };
 
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
+      const user = JSON.parse(localStorage.getItem('user')); 
       const response = await axios.post(
         `http://localhost:3000/user/${saloonId}/appointment`,
         { services: selectedServices },
@@ -49,8 +51,23 @@ const AddAppointment = () => {
           },
         }
       );
+      const appointment = {
+        userId: user.id,
+        saloonName: saloonData.name,
+        address: saloonData.address,
+        startTime: response.data.startTime.substring(0, 25),
+        endTime: response.data.endTime.substring(0, 25),
+        totalPrice,
+      };
+      const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+      storedAppointments.unshift(appointment);
+      localStorage.setItem('appointments', JSON.stringify(storedAppointments));
+
+      setAppointmentStartTime(response.data.startTime.substring(0, 25));
+      setAppointmentEndTime(response.data.endTime.substring(0, 25));
+
+      alert(`Your selected services are ${selectedServices} and Total Price is ₹ ${totalPrice}`);
       navigate('/userMyAppointment');
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -94,6 +111,9 @@ const AddAppointment = () => {
           <button type="button" className="btn btn-primary" onClick={handleSubmit}>
             Book Appointment
           </button>
+        </div>
+        <div style={{ marginTop: '2rem' }}>
+          <h4>Total Price : ₹ {totalPrice}</h4>
         </div>
       </div>
     </div>

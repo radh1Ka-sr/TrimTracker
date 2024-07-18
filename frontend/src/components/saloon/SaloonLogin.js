@@ -26,7 +26,10 @@ const SaloonLogin = () => {
           alert('Incorrect password! Please try again.');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err =>{
+        alert('Incorrect Email or Password!');
+        return
+      });
   };
 
   return (
