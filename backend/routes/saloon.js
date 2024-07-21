@@ -34,38 +34,49 @@ router.post('/login', async (req, res) => {
   });
 
 //Home page for saloon
-router.get('/',authenticateJwt,async(req,res)=>{
-    const saloon = req.user.saloon;
-    console.log(saloon);
-    const token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, SECRET , async (err,decode)=>{
-        try {
-            let data = await Saloon.find({email : saloon});
-            console.log(data)
-            res.status(200).json({
-                message : "Success",
-                data : data,
-            })
-        } catch (err) {
-            res.json({message : err.message})
-        }
-    })
-  });
+router.get('/', authenticateJwt, async (req, res) => {
+  const saloonEmail = req.user.saloon;
+  const token = req.headers.authorization.split(' ')[1];
+
+  try {
+    // Verify JWT token
+    const decoded = jwt.verify(token, SECRET);
+
+    // Find the saloon by email
+    const saloon = await Saloon.findOne({ email: saloonEmail });
+    if (!saloon) {
+      return res.status(404).json({ message: 'Saloon not found' });
+    }
+
+    // Fetch appointments based on appointment IDs stored in the saloon schema
+    const appointments = await Appointment.find({
+      _id: { $in: saloon.appointments }
+    });
+
+    res.status(200).json({
+      message: 'Success',
+      data: appointments
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 // Delete a User
-router.delete('/:userId', authenticateJwt, async (req, res) => {
+router.delete('/:appointmentId', authenticateJwt, async (req, res) => {
+  const { appointmentId } = req.params;
+
   try {
-    const userId = req.params.userId;
+    const appointment = await Appointment.findByIdAndDelete(appointmentId);
 
-    // Remove this user from any saloons' user arrays
-    await Saloon.updateMany(
-      { user: userId },
-      { $pull: { user: userId } }
-    );
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
 
-    res.json({ message: "User and their appointments completed and removed successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(200).json({ message: 'Appointment deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

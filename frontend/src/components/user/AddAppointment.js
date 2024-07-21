@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ServiceTable from './ServiceTable';
+import { useToast } from '@chakra-ui/react'; // Imported useToast
 
 const AddAppointment = () => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const AddAppointment = () => {
   const [image, setImage] = useState('');
   const [appointmentStartTime, setAppointmentStartTime] = useState('');
   const [appointmentEndTime, setAppointmentEndTime] = useState('');
+
+  const toast = useToast();
 
   const fetchSaloonData = async () => {
     try {
@@ -51,23 +54,17 @@ const AddAppointment = () => {
           },
         }
       );
-      // const appointment = {
-      //   userId: user._id,
-      //   saloonId: saloonId,
-      //   services,
-      //   startTime: response.data.startTime.substring(0, 25),
-      //   endTime: response.data.endTime.substring(0, 25),
-      //   totalPrice,
-      // };
-      
-      // const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
-      // storedAppointments.unshift(appointment);
-      // localStorage.setItem('appointments', JSON.stringify(storedAppointments));
-
       setAppointmentStartTime(response.data.startTime.substring(0, 25));
       setAppointmentEndTime(response.data.endTime.substring(0, 25));
 
-      alert(`Your selected services are ${selectedServices} and Total Price is ₹ ${totalPrice}`);
+      // Show toast notification
+      toast({
+        title: "Appointment Done",
+        description: `Your selected services are ${selectedServices} and Total Price is ₹ ${totalPrice}.`,
+        status: "success",
+        duration: 6000,
+        isClosable: true,
+      });
       navigate('/userMyAppointment');
     } catch (err) {
       console.error(err);

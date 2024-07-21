@@ -9,7 +9,8 @@ const AppointmentSchema = new Schema({
     startTime: Date,
     endTime: Date,
     saloonName : String,
-    saloonAddress : String
+    saloonAddress : String,
+    userName : String
   
 });
 

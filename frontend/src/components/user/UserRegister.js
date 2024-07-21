@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react'; // Imported useToast
 
 const UserRegister = () => {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ const UserRegister = () => {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
+  const toast = useToast();
 
   const validateForm = () => {
     const newErrors = {};
@@ -32,30 +34,54 @@ const UserRegister = () => {
 
     if (!validateForm()) return;
 
-    axios.post('http://localhost:3000/user/signup', 
-    { name, email, password, phone, gender })
-    .then(response => {
+    axios.post('http://localhost:3000/user/signup', { name, email, password, phone, gender })
+      .then(response => {
         console.log(response.data);
-        alert("Registered successfully! Please Login to proceed.");
+        // Show toast notification
+        toast({
+          title: "Registration Successful",
+          description: "The user has registered successfully.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
         navigate('/userLogin');
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         if (error.response) {
-            if (error.response.status === 403) {
-                alert("E-mail already registered! Please Login to proceed.");
-                navigate('/userLogin');
-            } else {
-                alert("An error occurred. Please try again.");
-            }
+          if (error.response.status === 403) {
+            toast({
+              title: "E-mail already registered",
+              description: "Please Login to proceed.",
+              status: "warning",
+              duration: 4000,
+              isClosable: true,
+            });
+            navigate('/userLogin');
+          } else {
+            toast({
+              title: "An error occurred",
+              description: "Please try again.",
+              status: "error",
+              duration: 4000,
+              isClosable: true,
+            });
+          }
         } else {
-            console.log(error);
-            alert("An error occurred. Please check your network connection and try again.");
+          console.log(error);
+          toast({
+            title: "Network Error",
+            description: "Please check your network connection and try again.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         }
-    });
+      });
   }
 
   return (
-    <div >
+    <div>
       <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem',borderStyle:'solid',borderColor:'ButtonShadow'}}>
         <h2 style={{display:'flex',justifyContent:'center',marginBottom:'1rem'}}>Register as a Customer </h2>
         

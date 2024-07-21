@@ -16,6 +16,7 @@ import MyProfile from './components/user/MyProfile';
 import Saloon from './components/user/Saloon';
 import React,{useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProfileSaloon from './components/saloon/ProfileSaloon';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
     <Route exact path="/userMyAppointment" element={<MyAppointment/>}/>
     <Route exact path="/userMyProfile" element={<MyProfile/>}/>
     <Route exact path="/userSaloon" element={<Saloon/>}/>
+    <Route exact path="/saloonProfile" element={<ProfileSaloon/>} />
     
     <Route/> 
    </Routes>

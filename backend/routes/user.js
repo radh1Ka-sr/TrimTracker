@@ -134,7 +134,8 @@ router.post('/:saloonId/appointment', authenticateJwt, async (req, res) => {
       startTime : formattedStartTime,
       endTime : formattedEndTime,
       saloonName : saloon.saloonName,
-      saloonAddress : saloon.address
+      saloonAddress : saloon.address,
+      userName : user.name
 
     });
 

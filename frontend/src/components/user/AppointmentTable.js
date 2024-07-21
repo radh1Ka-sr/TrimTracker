@@ -44,7 +44,7 @@ const AppointmentTable = ({ appointments }) => {
               <th scope="row"><li style={{ marginLeft: '0.8rem' }}></li></th>
               <td><Link to={`/userAddAppointment/${appointment.saloonId}`}>{appointment.saloonName}</Link></td>
               <td>{appointment.saloonAddress}</td>
-              <td>{appointment.services + ' '}</td>
+              <td>{appointment.services.join(', ')}</td>
               <td style={{ whiteSpace: 'pre-wrap' }}>{formatDate(appointment.startTime)}</td>
               <td style={{ whiteSpace: 'pre-wrap' }}>{formatDate(appointment.endTime)}</td>
               <td>{appointment.totalPrice}</td>

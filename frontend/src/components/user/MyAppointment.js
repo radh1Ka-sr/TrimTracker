@@ -5,6 +5,7 @@ import axios from 'axios';
 const MyAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   
 
   const fetchSaloonData = async () => {
@@ -17,17 +18,28 @@ const MyAppointment = () => {
       });
       const reversedAppointments = response.data.myAppointments.reverse();
       setAppointments(reversedAppointments);
+      setLoading(false);
       
-      // setSaloonData(response.data.data);
-      // setImage(response.data.data.imageAddress);
     } catch (err) {
       setError(err);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchSaloonData();
   }, []);
+
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div className="spinner-border" role="status">
+          <span>Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
