@@ -1,18 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
 import ProfileTable from './ProfileTable';
 
 const ProfileSaloon = () => {
-  const navigate = useNavigate();
   const saloonLocalStorageData = JSON.parse(localStorage.getItem('saloon'));
-  const saloonId = saloonLocalStorageData._id;
-  const [saloonData, setSaloonData] = useState(saloonLocalStorageData);
-  const [selectedServices, setSelectedServices] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [error, setError] = useState(null);
-  const [appointmentStartTime, setAppointmentStartTime] = useState('');
-  const [appointmentEndTime, setAppointmentEndTime] = useState('');
+  const [saloonData] = useState(saloonLocalStorageData);
 
 
 
