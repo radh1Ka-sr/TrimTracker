@@ -81,77 +81,78 @@ const UserRegister = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} style={{marginTop:'3rem',marginLeft:'25rem',marginRight:'25rem',marginBottom:'1rem',borderStyle:'solid',borderColor:'ButtonShadow'}}>
-        <h2 style={{display:'flex',justifyContent:'center',marginBottom:'1rem'}}>Register as a Customer </h2>
-        
-        <div className="mb-3" style={{margin:'1rem'}}>
-          <label htmlFor="exampleInputName" className="form-label">Name</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="exampleInputName" 
-            aria-describedby="nameHelp"
-            onChange={(event) => setName(event.target.value)}  
-          />
-          {errors.name && <div className="form-text text-danger">{errors.name}</div>}
-        </div>      
+    <div className="container mt-4">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-8 col-lg-6">
+          <form onSubmit={handleSubmit} className="border p-4 mb-4">
+            <h2 className="text-center mb-4">Register as a Customer</h2>
+            
+            <div className="mb-3">
+              <label htmlFor="exampleInputName" className="form-label">Name</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="exampleInputName" 
+                aria-describedby="nameHelp"
+                onChange={(event) => setName(event.target.value)}  
+              />
+              {errors.name && <div className="form-text text-danger">{errors.name}</div>}
+            </div>      
 
-        <div className="mb-3" style={{margin:'1rem'}}>
-          <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-          <input 
-            type="email" 
-            className="form-control" 
-            id="exampleInputEmail1" 
-            aria-describedby="emailHelp"
-            onChange={(event) => setEmail(event.target.value)}  
-          />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-          {errors.email && <div className="form-text text-danger">{errors.email}</div>}
+            <div className="mb-3">
+              <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+              <input 
+                type="email" 
+                className="form-control" 
+                id="exampleInputEmail1" 
+                aria-describedby="emailHelp"
+                onChange={(event) => setEmail(event.target.value)}  
+              />
+              <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+              {errors.email && <div className="form-text text-danger">{errors.email}</div>}
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+              <input 
+                type="password" 
+                className="form-control" 
+                id="exampleInputPassword1" 
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              {errors.password && <div className="form-text text-danger">{errors.password}</div>}
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="exampleInputPhone" className="form-label">Phone No.</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="exampleInputPhone" 
+                aria-describedby="phoneHelp"
+                onChange={(event) => setPhone(event.target.value)}  
+              />
+              {errors.phone && <div className="form-text text-danger">{errors.phone}</div>}
+            </div>   
+
+            <div className="mb-3">
+              <label htmlFor="exampleInputGender" className="form-label">Gender</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="exampleInputGender" 
+                aria-describedby="genderHelp" 
+                onChange={(event) => setGender(event.target.value)}  
+              />
+              {errors.gender && <div className="form-text text-danger">{errors.gender}</div>}
+            </div>  
+
+            <button type="submit" className="btn btn-primary w-100">Register</button>
+          </form>
+          <div className="text-center">
+            <Link to="/userLogin">If you are already registered then Login!</Link>
+          </div>
         </div>
-
-        <div className="mb-3" style={{margin:'1rem'}}>
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input 
-            type="password" 
-            className="form-control" 
-            id="exampleInputPassword1" 
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          {errors.password && <div className="form-text text-danger">{errors.password}</div>}
-        </div>
-
-        <div className="mb-3" style={{margin:'1rem'}}>
-          <label htmlFor="exampleInputPhone" className="form-label">Phone No.</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="exampleInputPhone" 
-            aria-describedby="phoneHelp"
-            onChange={(event) => setPhone(event.target.value)}  
-          />
-          {errors.phone && <div className="form-text text-danger">{errors.phone}</div>}
-        </div>   
-
-        <div className="mb-3" style={{margin:'1rem'}}>
-          <label htmlFor="exampleInputGender" className="form-label">Gender</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            id="exampleInputGender" 
-            aria-describedby="genderHelp" 
-            onChange={(event) => setGender(event.target.value)}  
-          />
-          {errors.gender && <div className="form-text text-danger">{errors.gender}</div>}
-        </div>  
-
-        <button type="submit" className="btn btn-primary" style={{margin:'1rem'}}>Register</button>
-      </form>
-
-      <div style={{marginBottom:'2rem'}}>
-        <Link to="/userLogin" style={{marginLeft:'25rem',marginRight:'25rem',marginBottom:'5rem'}} >
-          If you are already registered then Login!
-        </Link>
       </div>
     </div>
   );

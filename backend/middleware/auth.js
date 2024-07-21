@@ -11,7 +11,6 @@ function authenticateJwt(req,res,next){
         if(decode){
         
             req.user = decode;
-            // req.body.publishedBy= decode.user;
             // console.log(decode);
             next()
         }else{

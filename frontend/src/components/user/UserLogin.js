@@ -54,37 +54,41 @@ const UserLogin = () => {
   };
 
   return (
-    <div>
-      <div style={{ marginTop: '3rem', marginLeft: '25rem', marginRight: '25rem', marginBottom: '1rem', borderStyle: 'solid', borderColor: 'ButtonShadow' }}>
-        <h2 style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>Login as a Customer</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3" style={{ margin: '1rem' }}>
-            <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-8 col-lg-6">
+          <div className="border p-4 mt-4">
+            <h2 className="text-center mb-4">Login as a Customer</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="exampleInputPassword1"
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-primary w-100">Login</button>
+            </form>
           </div>
-          <div className="mb-3" style={{ margin: '1rem' }}>
-            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
+          <div className="text-center mt-3">
+            <Link to="/userRegister">If you are not registered then Register!</Link>
           </div>
-          <button type="submit" className="btn btn-primary" style={{ margin: '1rem' }}>Login</button>
-        </form>
-      </div>
-      <div style={{ marginBottom: '2rem' }}>
-        <Link to="/userRegister" style={{ marginLeft: '25rem', marginRight: '25rem', marginBottom: '5rem' }}>If you are not registered then Register!</Link>
+        </div>
       </div>
     </div>
   );

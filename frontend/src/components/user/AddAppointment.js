@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ServiceTable from './ServiceTable';
-import { useToast } from '@chakra-ui/react'; // Imported useToast
+import { useToast } from '@chakra-ui/react';
 
 const AddAppointment = () => {
   const navigate = useNavigate();
@@ -57,7 +57,6 @@ const AddAppointment = () => {
       setAppointmentStartTime(response.data.startTime.substring(0, 25));
       setAppointmentEndTime(response.data.endTime.substring(0, 25));
 
-      // Show toast notification
       toast({
         title: "Appointment Done",
         description: `Your selected services are ${selectedServices} and Total Price is ₹ ${totalPrice}.`,
@@ -80,38 +79,40 @@ const AddAppointment = () => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-      <div style={{ margin: '3rem', width: '32rem', height: '20rem' }}>
-        <div className="card">
-          <img
-            src={image}
-            className="card-img-top"
-            alt="..."
-          />
-          <div className="card-body">
-            <h5 className="card-title" style={{ display: 'flex', justifyContent: 'center' }}>
-              {saloonData.saloonName}
-            </h5>
-            <li className="list-group-item">Email : {saloonData.email}</li>
-            <li className="list-group-item">Owner : {saloonData.name}</li>
-            <li className="list-group-item">Address : {saloonData.address}</li>
+    <div className="container mt-4">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-6 mb-4">
+          <div className="card">
+            <img
+              src={image}
+              className="card-img-top"
+              alt="Saloon"
+            />
+            <div className="card-body">
+              <h5 className="card-title text-center">{saloonData.saloonName}</h5>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">Email: {saloonData.email}</li>
+                <li className="list-group-item">Owner: {saloonData.name}</li>
+                <li className="list-group-item">Address: {saloonData.address}</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div style={{ margin: '3rem', width: '30rem', height: '20rem' }}>
-        <ServiceTable
-          services={saloonData.services}
-          prices={saloonData.prices}
-          times={saloonData.averageTimes}
-          onServiceChange={handleServiceChange}
-        />
-        <div style={{ display: 'flex', justifyContent: 'right', marginTop: '1.7rem' }}>
-          <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-            Book Appointment
-          </button>
-        </div>
-        <div style={{ marginTop: '2rem' }}>
-          <h4>Total Price : ₹ {totalPrice}</h4>
+        <div className="col-12 col-md-6 mb-4">
+          <ServiceTable
+            services={saloonData.services}
+            prices={saloonData.prices}
+            times={saloonData.averageTimes}
+            onServiceChange={handleServiceChange}
+          />
+          <div className="d-flex justify-content-end mt-3">
+            <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+              Book Appointment
+            </button>
+          </div>
+          <div className="mt-3">
+            <h4>Total Price: ₹ {totalPrice}</h4>
+          </div>
         </div>
       </div>
     </div>
