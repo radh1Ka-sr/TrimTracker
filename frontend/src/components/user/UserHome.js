@@ -40,7 +40,7 @@ const UserHome = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', backgroundColor:'beige' }}>
       {saloonData.map((saloon, index) => (
         <Card 
           key={index} 

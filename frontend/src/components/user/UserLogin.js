@@ -57,7 +57,7 @@ const UserLogin = () => {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8 col-lg-6">
-          <div className="border p-4 mt-4">
+          <div className="border p-4 mt-4"  style={{backgroundColor:'beige'}}>
             <h2 className="text-center mb-4">Login as a Customer</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">

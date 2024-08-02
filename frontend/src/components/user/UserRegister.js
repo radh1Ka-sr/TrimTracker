@@ -84,7 +84,7 @@ const UserRegister = () => {
     <div className="container mt-4">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8 col-lg-6">
-          <form onSubmit={handleSubmit} className="border p-4 mb-4">
+          <form onSubmit={handleSubmit} className="border p-4 mb-4"  style={{backgroundColor:'beige'}}>
             <h2 className="text-center mb-4">Register as a Customer</h2>
             
             <div className="mb-3">

@@ -57,7 +57,7 @@ const SaloonLogin = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8 col-lg-6">
-          <div className="border p-4" style={{ borderRadius: '10px' }}>
+          <div className="border p-4" style={{ borderRadius: '10px' , backgroundColor:'beige'}}>
             <h2 className="text-center mb-4">Login as a Saloon</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">

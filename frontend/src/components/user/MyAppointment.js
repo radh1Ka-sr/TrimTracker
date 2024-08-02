@@ -42,7 +42,7 @@ const MyAppointment = () => {
   }
 
   return (
-    <div>
+    <div style={{backgroundColor:'beige'}}>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         <h4 style={{ marginTop: '1.7rem' }}>Your Appointment List</h4>
         <img

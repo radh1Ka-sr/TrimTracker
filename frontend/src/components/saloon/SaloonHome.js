@@ -44,8 +44,9 @@ const SaloonHome = () => {
   }
 
   return (
-    <ChakraProvider>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <div style={{backgroundColor:'beige'}}>
+    <ChakraProvider >
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
         <h4 style={{ marginTop: '1.7rem' }}>List of Customer's appointed for services</h4>
         <img 
           src="https://t3.ftcdn.net/jpg/05/24/30/20/360_F_524302085_lZ82Bsfc7OECPdtVv0isnvda88BMHIJB.jpg" 
@@ -55,6 +56,7 @@ const SaloonHome = () => {
       </div>
       <SaloonAppointmentTable appointments={appointments} setAppointments={setAppointments} toast={toast} /> {/* Passed toast prop */}
     </ChakraProvider>
+    </div>
   );
 };
 

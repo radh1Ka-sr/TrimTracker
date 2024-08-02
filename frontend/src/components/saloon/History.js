@@ -47,7 +47,7 @@ const History = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div >
+    <div style={{backgroundColor:'beige'}} >
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       <h3 style={{ marginTop: '1.7rem' }}>Deleted Appointments History</h3>
       </div>

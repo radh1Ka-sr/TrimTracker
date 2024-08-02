@@ -96,7 +96,7 @@ const SaloonAppointmentTable = ({ appointments, setAppointments, toast }) => { /
               </tr>
               {index === 0 && (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '2.5rem', paddingBottom: '1.5rem' }}>
+                  <td colSpan="5" style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '2.5rem', paddingBottom: '1.5rem', backgroundColor:'beige'}}>
                     <h4>Customer's in queue</h4>
                   </td>
                 </tr>
