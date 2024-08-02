@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -33,16 +33,13 @@ const Home = () => {
 const styles = {
   homeContainer: {
     position: 'relative',
-    minHeight: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    height: '100%', // Ensure container grows with content
+    overflowY: 'auto', // Enable scrolling if content exceeds height
     textAlign: 'center',
     color: 'white',
   },
   backgroundImage: {
-    position: 'absolute',
+    position: 'fixed', // Use fixed to keep the image in place
     top: 0,
     left: 0,
     width: '100%',
@@ -51,7 +48,7 @@ const styles = {
     objectFit: 'cover',
   },
   overlay: {
-    position: 'absolute',
+    position: 'fixed', // Use fixed to ensure overlay covers background image
     top: 0,
     left: 0,
     width: '100%',
@@ -62,15 +59,22 @@ const styles = {
   container: {
     zIndex: 1,
     marginTop: '50px',
+    padding: '0 20px',
+    width: '100%',
+    maxWidth: '1200px',
+    boxSizing: 'border-box',
   },
   cardContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap', // Allow cards to wrap to the next line
   },
   card: {
     width: '20rem',
     border: '2px solid royalblue',
     margin: '10px',
+    boxSizing: 'border-box',
   },
   cardImage: {
     width: '100%',
@@ -89,6 +93,27 @@ const styles = {
     color: 'white',
     textDecoration: 'none',
     borderRadius: '5px',
+  },
+  // Responsive design
+  '@media (max-width: 768px)': {
+    cardContainer: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    card: {
+      width: '90%',
+      margin: '10px 0',
+    },
+    cardBody: {
+      padding: '0.5rem',
+    },
+    cardText: {
+      fontSize: '0.9rem',
+    },
+    button: {
+      padding: '0.4rem 0.8rem',
+      fontSize: '0.9rem',
+    },
   },
 };
 

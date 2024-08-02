@@ -32,7 +32,10 @@ const History = () => {
           return;
         }
         
-        setAppointments(response.data.data || []); // Ensure appointments is an array
+        const fetchedAppointments = response.data.data || [];
+        // Sort appointments by deletedAt in descending order
+        fetchedAppointments.sort((a, b) => new Date(b.deletedAt) - new Date(a.deletedAt));
+        setAppointments(fetchedAppointments);
       } catch (error) {
         console.error('API Error:', error);
         setError('An error occurred while fetching appointments.');
@@ -43,40 +46,48 @@ const History = () => {
     fetchDeletedAppointments();
   }, [navigate]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div className="spinner-border" role="status">
+          <span>Loading...</span>
+        </div>
+      </div>
+    );
+  }
   if (error) return <p>{error}</p>;
 
   return (
-    <div style={{backgroundColor:'beige'}} >
+    <div style={{ backgroundColor: 'beige' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <h3 style={{ marginTop: '1.7rem' }}>Deleted Appointments History</h3>
+        <h3 style={{ marginTop: '1.7rem' }}>Deleted Appointments History</h3>
       </div>
       {appointments.length === 0 ? (
         <p>No deleted appointments available.</p>
       ) : (
-        <div style={{ margin: '2rem', marginLeft:'5rem' }}>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">User Name</th>
-              <th scope="col">Services</th>
-              <th scope="col">Total Price</th>
-              <th scope="col">Completed At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments.map((appointment, index) => (
-              <tr key={appointment._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{appointment.userName}</td>
-                <td>{appointment.services.join(', ')}</td>
-                <td>{appointment.totalPrice}</td>
-                <td>{new Date(appointment.deletedAt).toLocaleString()}</td>
+        <div style={{ margin: '2rem', marginLeft: '5rem' }}>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Services</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Completed At</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {appointments.map((appointment, index) => (
+                <tr key={appointment._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{appointment.userName}</td>
+                  <td>{appointment.services.join(', ')}</td>
+                  <td>{appointment.totalPrice}</td>
+                  <td>{new Date(appointment.deletedAt).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
