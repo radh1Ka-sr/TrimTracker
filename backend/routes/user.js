@@ -4,33 +4,33 @@ const { User, Saloon, Appointment} = require("../models");
 const SECRET = "pratik"
 const jwt = require('jsonwebtoken');
 const { authenticateJwt } = require('../middleware/auth');
-
-//Signup
+const bcrypt = require('bcrypt');
+// Signup
 router.post('/signup', async (req, res) => {
-    const { name, email, password, phone, gender} = req.body;
-    const user = await User.findOne({ email });
-    if (user) {
-      res.status(403).json({ message: 'User already exists' });
-    } else {
-      const newUser = new User({ name, email, password, phone, gender});
-      await newUser.save();
-      const token = jwt.sign({ email, role: 'user' }, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'User created successfully', token });
-    }
-  });
+  const { name, email, password, phone, gender } = req.body;
+  const user = await User.findOne({ email });
+  if (user) {
+    res.status(403).json({ message: 'User already exists' });
+  } else {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name, email, password: hashedPassword, phone, gender });
+    await newUser.save();
+    const token = jwt.sign({ email, role: 'user' }, SECRET, { expiresIn: '1h' });
+    res.json({ message: 'User created successfully', token });
+  }
+});
 
-  //Login
-  router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email, password });
-    if (user) {
-      const token = jwt.sign({ user : user.email}, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Logged in successfully', token , user });
-    } else {
-      res.status(403).json({ message: 'Invalid email or password' });
-    }
-  });
-
+// Login
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (user && await bcrypt.compare(password, user.password)) {
+    const token = jwt.sign({ user: user.email }, SECRET, { expiresIn: '1h' });
+    res.json({ message: 'Logged in successfully', token, user });
+  } else {
+    res.status(403).json({ message: 'Invalid email or password' });
+  }
+});
 
   // Get user appointments
 router.get('/myAppointments', authenticateJwt, async (req, res) => {

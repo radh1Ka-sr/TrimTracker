@@ -5,34 +5,34 @@ const { User, Saloon, Appointment, DeletedAppointment } = require("../models");
 const SECRET = "pratik"
 const jwt = require('jsonwebtoken');
 const { authenticateJwt } = require('../middleware/auth');
+const bcrypt = require('bcrypt');
 
-
-//Signup
+// Signup
 router.post('/signup', async (req, res) => {
-    const { name, email, password, saloonName,imageAddress, services, prices, averageTimes, address, user} = req.body;
-    const saloon = await Saloon.findOne({ email });
-    if (saloon) {
-      res.status(403).json({ message: 'Saloon already exists' });
-    } else {
-      const newSaloon = new Saloon({ name, email, password, saloonName,imageAddress, services, prices, averageTimes, address, user});
-      await newSaloon.save();
-      const token = jwt.sign({ email, role: 'saloon' }, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Saloon created successfully', token });
-    }
-  });
+  const { name, email, password, saloonName, imageAddress, services, prices, averageTimes, address, user } = req.body;
+  const saloon = await Saloon.findOne({ email });
+  if (saloon) {
+    res.status(403).json({ message: 'Saloon already exists' });
+  } else {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newSaloon = new Saloon({ name, email, password: hashedPassword, saloonName, imageAddress, services, prices, averageTimes, address, user });
+    await newSaloon.save();
+    const token = jwt.sign({ email, role: 'saloon' }, SECRET, { expiresIn: '1h' });
+    res.json({ message: 'Saloon created successfully', token });
+  }
+});
 
-
-//Login
+// Login
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const saloon = await Saloon.findOne({ email, password });
-    if (saloon) {
-      const token = jwt.sign({ saloon : saloon.email}, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Logged in successfully', token , saloon });
-    } else {
-      res.status(403).json({ message: 'Invalid email or password' });
-    }
-  });
+  const { email, password } = req.body;
+  const saloon = await Saloon.findOne({ email });
+  if (saloon && await bcrypt.compare(password, saloon.password)) {
+    const token = jwt.sign({ saloon: saloon.email }, SECRET, { expiresIn: '1h' });
+    res.json({ message: 'Logged in successfully', token, saloon });
+  } else {
+    res.status(403).json({ message: 'Invalid email or password' });
+  }
+});
 
 //Home page for saloon
 router.get('/', authenticateJwt, async (req, res) => {
