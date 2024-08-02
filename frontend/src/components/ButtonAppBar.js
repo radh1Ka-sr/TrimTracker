@@ -12,7 +12,9 @@ const ButtonAppBar = () => {
   const handleMyAppointment = () => {
     navigate('/userMyAppointment');
   };
-
+  const handleMyHistory = () => {
+    navigate('/saloonHistory');
+  };
   const getTrimTrackerLink = () => {
     if (!token) {
       return '/';
@@ -47,11 +49,11 @@ const ButtonAppBar = () => {
             </li>
           )}
           {token && userData && (
-            <Link className="nav-item">
+            <li className="nav-item">
               <span className="nav-link" style={{ color: "white" }}>
                 {userData.name}
               </span>
-            </Link>
+            </li>
           )}
         </ul>
         <ul className="nav justify-content-end">
@@ -79,6 +81,15 @@ const ButtonAppBar = () => {
                 onClick={handleMyAppointment}
               >
                 My Appointments
+              </button>
+              )}
+              {saloonData && (
+              <button
+                className="nav-link"
+                style={{ color: "white", background: "none", border: "none", cursor: "pointer" }}
+                onClick={handleMyHistory}
+              >
+                My History
               </button>
               )}
               <button
