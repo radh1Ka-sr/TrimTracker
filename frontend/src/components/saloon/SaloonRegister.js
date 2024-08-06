@@ -52,7 +52,7 @@ const SaloonRegister = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    axios.post('http://localhost:3000/saloon/signup', {
+    axios.post('https://trimtracker-1.onrender.com/saloon/signup', {
       name, email, password, saloonName, address, imageAddress, services, prices, averageTimes
     })
     .then(result => {

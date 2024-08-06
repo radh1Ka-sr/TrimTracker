@@ -23,7 +23,7 @@ const SaloonAppointmentTable = ({ appointments, setAppointments, toast }) => { /
   const handleClick = async (appointmentId) => {
     try {
       const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
-      await axios.delete(`http://localhost:3000/saloon/${appointmentId}`, {
+      await axios.delete(`https://trimtracker-1.onrender.com/saloon/${appointmentId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

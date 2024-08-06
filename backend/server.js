@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const cors = require('cors');
-
+require('dotenv').config();
 const userRouter = require('./routes/user');
 const shopRouter = require('./routes/saloon'); // Ensure the correct path is used
 
@@ -16,17 +16,18 @@ app.use('/user', userRouter);
 app.use('/saloon', shopRouter);
 
 // Connect to MongoDB
-const uri = 'mongodb+srv://pratiknand5:Uy3KiRbVFaA4uMCj@cluster0.eehxhmf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
-mongoose.connect(uri, {
-  
-})
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch(err => {
-    console.error('Connection error', err);
-  });
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("MongoDB connected!!");
+  } catch (error) {
+    console.log("Failed to connect to MongoDB", error);
+  }
+};
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+
+connectToMongoDB();
+
+app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
 //hi this is my server

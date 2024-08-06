@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
 //const { User, Saloon, Appointment} = require("../models");
 const { User, Saloon, Appointment, DeletedAppointment } = require("../models");
-const SECRET = "pratik"
+
 const jwt = require('jsonwebtoken');
 const { authenticateJwt } = require('../middleware/auth');
 const bcrypt = require('bcrypt');
@@ -17,7 +18,7 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newSaloon = new Saloon({ name, email, password: hashedPassword, saloonName, imageAddress, services, prices, averageTimes, address, user });
     await newSaloon.save();
-    const token = jwt.sign({ email, role: 'saloon' }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ email, role: 'saloon' }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
     res.json({ message: 'Saloon created successfully', token });
   }
 });
@@ -27,7 +28,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const saloon = await Saloon.findOne({ email });
   if (saloon && await bcrypt.compare(password, saloon.password)) {
-    const token = jwt.sign({ saloon: saloon.email }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ saloon: saloon.email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
     res.json({ message: 'Logged in successfully', token, saloon });
   } else {
     res.status(403).json({ message: 'Invalid email or password' });
@@ -41,7 +42,7 @@ router.get('/', authenticateJwt, async (req, res) => {
 
   try {
     // Verify JWT token
-    const decoded = jwt.verify(token, SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Find the saloon by email
     const saloon = await Saloon.findOne({ email: saloonEmail });

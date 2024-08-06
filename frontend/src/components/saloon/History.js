@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:3000'; // Replace with your actual backend URL
+const API_URL = 'https://trimtracker-1.onrender.com'; // Replace with your actual backend URL
 
 const History = () => {
   const [appointments, setAppointments] = useState([]);
