@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [https://trimtracker-final.onrender.com](https://trimtracker-final.onrender.com) to view it in your browser.
+Open [https://trimtracker-3.onrender.com](https://trimtracker-3.onrender.com) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.

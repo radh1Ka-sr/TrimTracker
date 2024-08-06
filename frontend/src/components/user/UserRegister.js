@@ -34,7 +34,7 @@ const UserRegister = () => {
 
     if (!validateForm()) return;
 
-    axios.post('https://trimtracker-final.onrender.com/user/signup', { name, email, password, phone, gender })
+    axios.post('https://trimtracker-3.onrender.com/user/signup', { name, email, password, phone, gender })
       .then(response => {
         console.log(response.data);
         // Show toast notification

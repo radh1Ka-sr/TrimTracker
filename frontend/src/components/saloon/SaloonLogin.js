@@ -14,7 +14,7 @@ const SaloonLogin = () => {
     event.preventDefault();
     console.log("Hello");
 
-    axios.post('https://trimtracker-final.onrender.com/saloon/login', { email, password })
+    axios.post('https://trimtracker-3.onrender.com/saloon/login', { email, password })
       .then(result => {
         console.log(result);
         if (result.data.message === "Logged in successfully") {

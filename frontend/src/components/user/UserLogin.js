@@ -13,7 +13,7 @@ const UserLogin = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('https://trimtracker-final.onrender.com/user/login', { email, password })
+    axios.post('https://trimtracker-3.onrender.com/user/login', { email, password })
       .then(result => {
         console.log(result);
         if (result.data.message === "Logged in successfully") {
