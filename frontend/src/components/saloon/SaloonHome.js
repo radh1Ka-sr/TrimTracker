@@ -13,7 +13,7 @@ const SaloonHome = () => {
     const fetchAppointments = async () => {
       try {
         const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
-        const response = await axios.get('https://trimtracker-1.onrender.com/saloon', {
+        const response = await axios.get('https://trimtracker-final.onrender.com/saloon', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

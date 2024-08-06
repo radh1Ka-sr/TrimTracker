@@ -20,7 +20,7 @@ const AddAppointment = () => {
   const fetchSaloonData = async () => {
     try {
       const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
-      const response = await axios.get(`https://trimtracker-1.onrender.com/user/${saloonId}`, {
+      const response = await axios.get(`https://trimtracker-final.onrender.com/user/${saloonId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +46,7 @@ const AddAppointment = () => {
       const token = localStorage.getItem('auth').replace(/(^"|"$)/g, '');
       const user = JSON.parse(localStorage.getItem('user')); 
       const response = await axios.post(
-        `https://trimtracker-1.onrender.com/user/${saloonId}/appointment`,
+        `https://trimtracker-final.onrender.com/user/${saloonId}/appointment`,
         { services: selectedServices },
         {
           headers: {
